@@ -1,0 +1,11 @@
+ GET THE DATA            SHAPE THE DATA                  STORE THE DATA                          FIND THE DATA
+ ────────────            ──────────────                  ──────────────                          ─────────────
+ httpx ────────────► BeautifulSoup ────► Pydantic ────► SQLAlchemy ────► psycopg ────► PostgreSQL ────► Full-text search
+ (asks the API        (messy HTML →        (checks the      (Python objects   (the driver:                  unaccent, pg_trgm
+  for pages)           Python data)         shape is right)  → SQL)            carries SQL                  pgvector (stretch)
+   │                                                                           over the wire)
+ tenacity                                                                            ▲
+ (retries when                                                        Alembic ───────┤ changes the table structure over time
+  requests fail)                                                      Docker ────────┘ runs Postgres on your machine
+
+ pytest: sits beside the "shape" step and checks the parsers against saved pages
